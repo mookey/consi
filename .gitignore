@@ -1,3 +1,7 @@
 node_modules
 production.json
 development.json
+public/dist
+public/images
+webpack-assets.json
+webpack.config.js

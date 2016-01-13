@@ -1,17 +1,22 @@
 'use strict';
 
-module.exports = function(app) {
+import AppComponent from '../components/app';
+import IndexComponent from '../components/index';
+import AboutComponent from '../components/about';
 
-  function r(req, res, data) {
-    if (req.xhr) {
-      res.send(data);
-      return;
+const routes = {
+  path: '',
+  component: AppComponent,
+  childRoutes: [
+    {
+      path: '/',
+      component: IndexComponent
+    },
+    {
+      path: '/about',
+      component: AboutComponent
     }
-    res.sendStatus(200);
-  }
+  ]
+}
 
-  app.get('*', function (req, res) {
-    return r( req, res );
-  });
-
-};
+export { routes };
