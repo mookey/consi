@@ -1,17 +1,20 @@
 'use strict';
 
 var express = require('express');
-var compress = require('compression')();
+var compression = require('compression');
+var winston = require('winston');
 var PROD = 'production';
+var isProduction = process.env.NODE_ENV === PROD;
 
 module.exports = function(app) {
 
   var name;
   var js;
+  var css;
 
   function setDefaults(app) {
     var maxAge = 1000 * 60 * 60 * 24 * 365;
-    app.use(compress);
+    app.use(compression());
     app.use(express.static( global.env.public, { maxAge: maxAge }));
     app.enable('strict routing');
     app.enable('case sensitive routing');
@@ -19,48 +22,52 @@ module.exports = function(app) {
     app.set('views', global.env.views);
   }
 
-  if ( process.env.NODE_ENV === PROD ) {
+  if (isProduction) {
+
     name = 'production.json';
     js = '/dist/' + require('assets.json')['bundle.min'].js;
-    // buildRev = JSON.parse( fs.readFileSync(global.env.dist + 'rev-manifest.json', 'utf8') );
-    // global.env.build = {
-    //   css         : '/dist/' + buildRev['style.css'],
-    //   mainScript  : '/dist/' + buildRev['main.js'],
-    //   blogScript  : '/dist/' + buildRev['blog.js'],
-    //   cvScript    : '/dist/' + buildRev['cv.js'],
-    //   templates   : '/dist/' + buildRev['templates.js'],
-    //   path        : '/dist/js/'
-    // };
+    css = '/dist/' + require('assets.json')['bundle.min'].css;
+    global.log = new (winston.Logger)({
+      transports: [
+        new (winston.transports.Console)({ level: 'warning', colorize: true })
+      ]
+    });
   } else {
     name = 'development.json';
-    js = '/bundle.js';
-    // global.env.build = {
-    //   css         : '/assets/styles/style.css',
-    //   mainScript  : '/assets/scripts/main.js',
-    //   blogScript  : '/components/blog/blog.js',
-    //   cvScript    : '/components/cv/cv.js',
-    //   templates   : '/dist/templates.js',
-    //   path        : '/components/'
-    // };
+    js = '/dev/bundle.js';
+    css = '/dev/styles.css';
+    global.log = new (winston.Logger)({
+      transports: [
+        new (winston.transports.Console)({ level: 'debug', colorize: true })
+      ]
+    });
   }
 
   app.use(function(req, res, next) {
-
+    var debugJs;
+    var debugCss;
     if (req.query.isProd) {
-      js = '/dist/' + require('assets.json')['bundle.min'].js;
+      debugJs = '/dist/' + require('assets.json')['bundle.min'].js;
+      debugCss = '/dist/' + require('assets.json')['bundle.min'].css;
     } else if (req.query.isDev) {
-      js = '/bundle.js';
+      debugJs = '/dev/bundle.js';
+      debugCss = '/dev/styles.css';
     }
-
     req.locals = {};
-    req.locals.js = js;
-    req.locals.css = '';
-    // req.locals.mainScript = global.env.build.mainScript;
-    // req.locals.blogScript = global.env.build.blogScript;
-    // req.locals.cvScript   = global.env.build.cvScript;
-    // req.locals.templates  = global.env.build.templates;
-    // req.locals.css        = global.env.build.css;
-    // req.locals.path       = global.env.build.path;
+    req.locals.js = debugJs || js;
+    req.locals.css = debugCss || css;
+    next();
+  });
+
+  app.use(function(req, res, next) {
+    if (isProduction) {
+      next();
+      return;
+    }
+    if (!(/\.(png|jpg|gif|jpeg|ico|js)$/i).test(req.path)) {
+      global.log.debug('Req: ' + req.path);
+      global.log.debug('Query: ' + JSON.stringify(req.query));
+    }
     next();
   });
 

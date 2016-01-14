@@ -2,6 +2,7 @@ node_modules
 production.json
 development.json
 public/dist
+public/dev
 public/images
 public/bundle.js
 public/bundle.js.map

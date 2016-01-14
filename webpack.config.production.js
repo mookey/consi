@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 var AssetsPlugin = require('assets-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
-
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -22,7 +22,8 @@ module.exports = {
     new AssetsPlugin({
       filename: 'assets.json'
     }),
-    new CleanWebpackPlugin(['public/dist'])
+    new CleanWebpackPlugin(['public/dist']),
+    new ExtractTextPlugin('styles.[hash].css')
   ],
   module: {
     loaders: [
@@ -34,6 +35,13 @@ module.exports = {
         test: /\.js$/,
         loader: 'eslint-loader',
         exclude: /node_modules/
+      },
+      {
+        test: /\.(s)?css$/,
+        loader: ExtractTextPlugin.extract(
+          'style-loader',
+          'css-loader!sass-loader'
+        )
       }
     ]
   }

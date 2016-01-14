@@ -18,16 +18,16 @@ module.exports = function(app) {
   }
 
   function logErrors(err, req, res, next) {
-    console.error(err.stack);
+    global.log.error(err.stack);
     next(err);
   }
 
   function errorHandler(err, req, res) {
     if (req.xhr) {
-      res.send(500, { error: err });
+      res.send(500, { error: err.message });
     } else {
       res.status(500);
-      res.render('index', { error: err });
+      res.render('index', { error: err.message });
     }
   }
 
