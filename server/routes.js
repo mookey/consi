@@ -17,6 +17,6 @@ const routes = {
       component: AboutComponent
     }
   ]
-}
+};
 
 export { routes };

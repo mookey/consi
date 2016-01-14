@@ -20,8 +20,18 @@
   },
   "env": {
     "node": true,
-    "browser": true
+    "browser": true,
+    "es6": true
+  },
+  "ecmaFeatures": {
+    "modules": true,
+    "jsx": true
   },
   "extends": "eslint:recommended",
-  "globals": {}
+  "globals": {
+    "React": true
+  },
+  "plugins": [
+    "react"
+  ]
 }

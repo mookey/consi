@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 export default class AppComponent extends React.Component {
 
   componentDidMount() {
-    
+    console.log('evil');
   }
 
   render() {

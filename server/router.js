@@ -1,10 +1,10 @@
 'use strict';
-
+/*eslint-disable */
 import React from 'react';
+/*eslint-enable */
 import { renderToString } from 'react-dom/server';
 import { match, RoutingContext } from 'react-router';
 import { routes } from './routes';
-
 
 module.exports = function(app) {
 

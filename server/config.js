@@ -2,7 +2,6 @@
 
 var express = require('express');
 var compress = require('compression')();
-var fs = require('fs');
 var PROD = 'production';
 
 module.exports = function(app) {
@@ -22,7 +21,7 @@ module.exports = function(app) {
 
   if ( process.env.NODE_ENV === PROD ) {
     name = 'production.json';
-    js = require('webpack-assets.json')['bundle.min'].js;
+    js = '/dist/' + require('assets.json')['bundle.min'].js;
     // buildRev = JSON.parse( fs.readFileSync(global.env.dist + 'rev-manifest.json', 'utf8') );
     // global.env.build = {
     //   css         : '/dist/' + buildRev['style.css'],
@@ -34,7 +33,7 @@ module.exports = function(app) {
     // };
   } else {
     name = 'development.json';
-    js = require('webpack-assets.json')['bundle'].js;
+    js = '/bundle.js';
     // global.env.build = {
     //   css         : '/assets/styles/style.css',
     //   mainScript  : '/assets/scripts/main.js',
@@ -46,8 +45,15 @@ module.exports = function(app) {
   }
 
   app.use(function(req, res, next) {
+
+    if (req.query.isProd) {
+      js = '/dist/' + require('assets.json')['bundle.min'].js;
+    } else if (req.query.isDev) {
+      js = '/bundle.js';
+    }
+
     req.locals = {};
-    req.locals.js = '/dist/' + js;
+    req.locals.js = js;
     req.locals.css = '';
     // req.locals.mainScript = global.env.build.mainScript;
     // req.locals.blogScript = global.env.build.blogScript;

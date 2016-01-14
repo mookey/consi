@@ -3,5 +3,6 @@ production.json
 development.json
 public/dist
 public/images
-webpack-assets.json
-webpack.config.js
+public/bundle.js
+public/bundle.js.map
+assets.json
