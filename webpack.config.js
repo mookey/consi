@@ -6,9 +6,8 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = [
   {
     entry: {
-      'bundle': './public/client-render.js'
+      'bundle': ['webpack/hot/dev-server', './public/client-render.js']
     },
-    devtool: 'source-map',
     output: {
       path: './public/dev',
       filename: '[name].js'
@@ -17,7 +16,7 @@ module.exports = [
       loaders: [
         {
           test: /.js$/,
-          loader: 'babel'
+          loaders: ['babel']
         },
         {
           test: /\.js$/,

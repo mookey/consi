@@ -26,15 +26,18 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "node-sass": "^3.4.2",
     "normalize.css": "^3.0.3",
+    "react": "^0.14.6",
+    "react-hot-loader": "^1.3.0",
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",
-    "webpack": "^1.12.11"
+    "webpack": "^1.12.11",
+    "webpack-dev-server": "^1.14.1"
   },
   "scripts": {
     "start": "node ./node_modules/forever/bin/forever consi.js",
     "lint": "node_modules/eslint/bin/eslint.js **/*.js; exit 0",
     "build": "./node_modules/.bin/webpack --config webpack.config.production.js",
-    "dev": "./node_modules/.bin/webpack --watch -d --config webpack.config.js",
+    "dev": "./node_modules/.bin/webpack-dev-server --devtool eval --hot --progress --colors --config webpack.config.js",
     "test": "test"
   },
   "repository": {

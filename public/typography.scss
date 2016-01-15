@@ -1,7 +1,8 @@
 html {
   font-family: 'Muli', sans-serif;
   font-size: 16px;
-  line-height:1.2
+  line-height:1.2;
+  color: #222;
 }
 
 h1,
@@ -9,18 +10,26 @@ h2,
 h3,
 h4 {
   font-family: 'Oswald', sans-serif;
-  font-weight: 700;
+  font-weight: 400;
+  font-size: 2.25rem;
 }
 
 h2,
 h3,
 h4 {
   font-weight: 300;
+  font-size: 1.75rem;
+}
+
+h3,
+h4 {
+  font-size: 1.25rem;
 }
 
 .sub-header,
 .note {
   font-family: 'Old Standard TT', serif;
+  font-size: 1.25rem;
 }
 
 .small {

@@ -23,7 +23,6 @@ module.exports = function(app) {
   }
 
   if (isProduction) {
-
     name = 'production.json';
     js = '/dist/' + require('assets.json')['bundle.min'].js;
     css = '/dist/' + require('assets.json')['bundle.min'].css;
@@ -34,8 +33,8 @@ module.exports = function(app) {
     });
   } else {
     name = 'development.json';
-    js = '/dev/bundle.js';
-    css = '/dev/styles.css';
+    js = 'http://localhost:8080/bundle.js';
+    css = 'http://localhost:8080/styles.css';
     global.log = new (winston.Logger)({
       transports: [
         new (winston.transports.Console)({ level: 'debug', colorize: true })
@@ -46,14 +45,17 @@ module.exports = function(app) {
   app.use(function(req, res, next) {
     var debugJs;
     var debugCss;
-    if (req.query.isProd) {
-      debugJs = '/dist/' + require('assets.json')['bundle.min'].js;
-      debugCss = '/dist/' + require('assets.json')['bundle.min'].css;
-    } else if (req.query.isDev) {
-      debugJs = '/dev/bundle.js';
-      debugCss = '/dev/styles.css';
-    }
     req.locals = {};
+    req.locals.isProd = isProduction;
+    // if (req.query.isProd) {
+    //   debugJs = '/dist/' + require('assets.json')['bundle.min'].js;
+    //   debugCss = '/dist/' + require('assets.json')['bundle.min'].css;
+    //   req.locals.isProd = true;
+    // } else if (req.query.isDev) {
+    //   debugJs = 'http://localhost:8080/bundle.js';
+    //   debugCss = 'http://localhost:8080/styles.css';
+    //   req.locals.isProd = false;
+    // }
     req.locals.js = debugJs || js;
     req.locals.css = debugCss || css;
     next();
