@@ -37,7 +37,7 @@
     "start": "node ./node_modules/forever/bin/forever consi.js",
     "lint": "node_modules/eslint/bin/eslint.js **/*.js; exit 0",
     "build": "./node_modules/.bin/webpack --config webpack.config.production.js",
-    "dev": "./node_modules/.bin/webpack-dev-server --devtool eval --hot --progress --colors --config webpack.config.js",
+    "dev": "node consi.js & ./node_modules/.bin/webpack-dev-server --devtool eval --hot --progress --colors --config webpack.config.js",
     "test": "test"
   },
   "repository": {

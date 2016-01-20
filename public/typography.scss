@@ -1,8 +1,11 @@
 html {
   font-family: 'Muli', sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   line-height:1.2;
   color: #222;
+  @include tablet {
+    font-size: 16px;
+  }
 }
 
 h1,
@@ -11,24 +14,34 @@ h3,
 h4 {
   font-family: 'Oswald', sans-serif;
   font-weight: 400;
-  font-size: 2.25rem;
+  font-size: 3rem;
 }
 
 h2,
 h3,
 h4 {
   font-weight: 300;
-  font-size: 1.75rem;
+  font-size: 2rem;
 }
 
 h3,
 h4 {
-  font-size: 1.25rem;
+  font-size: 1rem;
+}
+
+em {
+  font-family: 'Old Standard TT', serif;
+  letter-spacing: -0.06rem;
+}
+
+h1 em {
+  letter-spacing: -0.1rem;
 }
 
 .sub-header,
 .note {
   font-family: 'Old Standard TT', serif;
+  letter-spacing: -0.06rem;
   font-size: 1.25rem;
 }
 

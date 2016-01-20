@@ -10,7 +10,7 @@ export default class AppComponent extends React.Component {
   render() {
     return (
       <div>
-        <h1>Welcome to my App</h1>
+        <h1><em>the</em> Fuckables</h1>
         <ul>
           <li><Link to='/'>Home</Link></li>
           <li><Link to='/about'>About</Link></li>
