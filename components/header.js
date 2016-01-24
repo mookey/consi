@@ -1,6 +1,4 @@
 import React from 'react';
-import Nav from '../components/nav';
-import Header from '../components/header';
 
 export default class AppComponent extends React.Component {
 
@@ -10,10 +8,8 @@ export default class AppComponent extends React.Component {
 
   render() {
     return (
-      <div>
-        <Header></Header>
-        <Nav></Nav>
-        { this.props.children }
+      <div className="header">
+        <h1><em>the</em> Fuckables</h1>
       </div>
     );
   }

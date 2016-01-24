@@ -1,7 +1,5 @@
 'use strict';
-/*eslint-disable */
-import React from 'react';
-/*eslint-enable */
+import React from 'react'; // eslint-disable-line
 import ReactDOM from 'react-dom';
 import { Router } from 'react-router';
 

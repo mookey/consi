@@ -5,13 +5,14 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = [
   {
-    entry: {
-      'bundle': ['webpack/hot/dev-server', './public/client-render.js']
-    },
+    entry: [
+      path.resolve(__dirname, 'public/client-render.js')
+    ],
     output: {
-      path: './public/dev',
-      filename: '[name].js'
+      path: path.resolve(__dirname, 'public/dev'),
+      filename: 'bundle.js'
     },
+    devtool: 'source-map',
     module: {
       loaders: [
         {
@@ -26,8 +27,8 @@ module.exports = [
         {
           test: /\.(s)?css$/,
           loader: ExtractTextPlugin.extract(
-            'style-loader',
-            'css-loader?sourceMap!sass-loader?sourceMap'
+            'style',
+            'css?sourceMap!sass?sourceMap'
           )
         }
       ]

@@ -32,7 +32,7 @@ module.exports = function(app) {
 
       global.log.info('Not found: ' + req.path);
       res.sendStatus(404);
-      
+
     });
   });
 

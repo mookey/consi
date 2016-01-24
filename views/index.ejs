@@ -17,10 +17,7 @@
   </head>
 
   <body>
-    <div id="main"><%- markup %></div>
-    <%if (!isProd) { %>
-      <script src="http://localhost:8080/webpack-dev-server.js"></script>
-    <% } %>
+    <div id="main"><div><%- markup %><div></div>
     <script async src="<%- js %>"></script>
   </body>
 
